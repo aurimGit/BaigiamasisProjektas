@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Main page menu</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="internationalization.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<style>
+#Bigtext {
+	font-weight: bold;
+}
+#locales {
+  border-radius: 3px;
+  color: black;
+  border-color: black;
+  background-color: white;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#fontsize {
+	font-size:20px;
+}
+</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark d-flex justify-content-between allign-center">
+  		<ul class="navbar-nav">	
+		  	<li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/menu}" th:text="#{home}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/moviepost}" th:text="#{add_movie}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/movielist}" th:text="#{movie_list}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/theaterpost}" th:text="#{add_theater}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/theaterlist}" th:text="#{theater_list}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/contacts}" th:text="#{contact_us}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/profile}" th:text="#{profile}"></a></li>
+  		</ul>
+		<ul class="navbar-nav">
+			<li style="color:white; font-size:35px"><img width="70px" th:src="@{/images/movie_logo.png}">Online Movies</li>
+		</ul>
+		<ul class="navbar-nav">
+		    <li class="nav-item" sec:authorize="!isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/login}" th:text="#{login}"></a></li>
+		    <li class="nav-item" sec:authorize="!isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/registration}" th:text="#{register}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/logout}" th:text="#{log_out}"></a></li>
+		</ul>
+	</nav>
+
+<br>
+<br>	
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-md-6 col-md-offset-3">
+				
+				<h1 th:text="#{login_title}"></h1>
+				<br>
+				<form th:action="@{/login}" method="post">
+					
+					
+					<div th:if="${param.error}">
+						<div class="alert alert-danger" th:text="#{password_incorrect}"></div>
+					</div>
+				
+					
+					<div th:if="${param.logout}">
+						<div class="alert alert-info" th:text="#{log_out_message}"></div>
+					</div>
+					
+					<div class = "form-group">
+						<label for ="username" th:text="#{username}"></label> :
+						<input type="text" class = "form-control" id ="username" name = "username"
+						th:placeholder="#{placeholder_login_username}"  autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label for="password" th:text="#{password}"></label>: <input type="password"
+							id="password" name="password" class="form-control"
+							th:placeholder="#{placeholder_login_password}"  />
+					</div>
+					
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6 col-sm-offset-3">
+								<input type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-primary" value="Log In" />
+							</div>
+							<div>
+							<select id="locales" >
+							    <option value="" th:text="#{language}"></option>
+							    <option value="en" th:text="#{lang.eng}"></option>
+							    <option value="lt" th:text="#{lang.lt}"></option>
+							</select>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="form-group">
+						<span th:text="#{new_user}"></span>
+						<a href="/" th:href="@{/registration}" th:text="#{register_here}"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Main page menu</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="internationalization.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<style>
+#button{
+	background-color:#F3B73F;
+	border-color:#b07c12; 
+	border-width:2px;
+	font-weight: bold
+}
+#thead{
+	background-color:#c98e14;
+	color:white; 
+	border-color:#b07c12; 
+	border-width:4px;
+	border-radius: 10px
+}
+
+#th {
+	background-color:#FBB119; 
+	border-width:3px;	
+	color:white; 
+	border-color:#b07c12
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+a:hover {
+	text-decoration: none;
+	color: white;
+}
+body {
+	display:flex;
+	flex-direction:column;
+	min-height: 100vh;
+}
+footer{
+	margin-top:auto;
+}
+#Bigtext {
+	font-weight: bold;
+}
+#locales {
+  border-width:3px;
+  border-radius: 3px;
+  color: #f9f7f2;
+  border-color: #939c99;
+  background-color: #798795;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#fontsize {
+	font-size:20px;
+}
+</style>
+</head>
+<body style="background-color:#F3B73F">
+
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark d-flex justify-content-between allign-center">
+  		<ul class="navbar-nav">	
+		  	<li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/menu}" th:text="#{home}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/moviepost}" th:text="#{add_movie}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/movielist}" th:text="#{movie_list}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/theaterpost}" th:text="#{add_theater}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/theaterlist}" th:text="#{theater_list}"></a></li>
+		    <li class="nav-item"><a id="fontsize" class="nav-link" th:href="@{/contacts}" th:text="#{contact_us}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/profile}" th:text="#{profile}"></a></li>
+  		</ul>
+		<ul class="navbar-nav">
+			<li style="color:white; font-size:35px"><img width="70px" th:src="@{/images/movie_logo.png}">Online Movies</li>
+		</ul>
+		<ul class="navbar-nav">
+		    <li class="nav-item" sec:authorize="!isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/login}" th:text="#{login}"></a></li>
+		    <li class="nav-item" sec:authorize="!isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/registration}" th:text="#{register}"></a></li>
+		    <li class="nav-item" sec:authorize="isAuthenticated()"><a id="fontsize" class="nav-link" th:href="@{/logout}" th:text="#{log_out}"></a></li>
+		</ul>
+	</nav>
+
+<br>
+<br>
+	<div class = "container" >
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="background-color:#FBB119; color:white; border-color:#b07c12; border-width:4px;border-radius: 10px">
+				<h1 class = "text-center" style="padding-top:15px; margin:0px" th:text="#{add_theater}"></h1>
+				<div class = "card-body">
+					<form th:action="@{/addtheater}" th:object = "${theater}" method="POST">
+						<div class ="form-group">
+							<label th:text="#{theater_title}" style="margin-left:8px;font-weight: bold"></label>
+							<input
+							type = "text"
+							name = "pavadinimas"
+							th:field = "*{pavadinimas}"
+							class = "form-control"
+							th:placeholder="#{placeholder_theater_title}"
+							/>
+						</div>
+						<div class ="form-group">
+							<label th:text="#{theater_city}" style="margin-left:8px;font-weight: bold"></label>
+							<input
+							type = "text"
+							name = "city"
+							th:field = "*{city}"
+							class = "form-control"
+							th:placeholder="#{placeholder_theater_city}"
+							/>
+						</div>
+						<div class ="form-group">
+							<label th:text="#{theater_address}" style="margin-left:8px;font-weight: bold"></label>
+							<input
+							type = "text"
+							name = "address"
+							th:field = "*{address}"
+							class = "form-control"
+							th:placeholder="#{placeholder_theater_address}"
+							/>
+						</div>
+						
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary" id="button" th:text="#{submit}"></button>
+							<button type="button" class = "btn btn-primary" id="button" ><a href="/theaterlist" th:text="#{go_back}"></a></button>
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+<br>
+<footer>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+      	<div class="p-2">
+      		<img width="55px" th:src="@{/images/movie_logo.png}">
+      	</div>
+		<div>
+			<ul class="navbar-nav">
+				<li class="nav-item"><p class="nav-link" th:text="#{all_rights}"></p></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/contacts}" th:text="#{contact_us}"></a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/tos}" th:text="#{tos}"></a></li>
+				<li class="nav-link">
+					<select id="locales" >
+					    <option value="" th:text="#{language}"></option>
+					    <option value="en" th:text="#{lang.eng}"></option>
+					    <option value="lt" th:text="#{lang.lt}"></option>
+					</select>
+				</li>			
+			</ul>
+		</div>
+	</nav>
+</footer>
+
+</body>
+</html>
